@@ -24,20 +24,21 @@ class Args():
 			return self.args[index]
 		except:
 			print("Parameter Error")
+			exit()
 	
 	@property	
 	def _path_configfile(self):
-#		return self._value_after_option('-c')
-		return '/home/shiyanlou/test.cfg'
+		return self._value_after_option('-c')
+#		return '/home/shiyanlou/test.cfg'
 
 	@property
 	def _path_userdatafile(self):
-#		return self._value_after_option('-d')
-		return '/home/shiyanlou/user.csv'
+		return self._value_after_option('-d')
+#		return '/home/shiyanlou/user.csv'
 	@property
 	def _path_outputfile(self):
-#		return self._value_after_option('-o')
-		return '/home/shiyanlou/gongzi.csv'
+		return self._value_after_option('-o')
+#		return '/home/shiyanlou/gongzi.csv'
 
 args = Args()
 
@@ -107,6 +108,7 @@ class UserData():
 				try:
 					salary = int(salary_string)
 				except:
+					print(line)
 					print("userdatafile have error")
 					exit()
 				userdata.append((name,salary))
@@ -171,8 +173,21 @@ class UserData():
 
 
 		with open(args._path_outputfile,'w') as file:
-			writer = csv.writer(file)
-			writer.writerows(result)
+#			writer = csv.writer(file)
+#			writer.writerows(result)
+			line_count = len(result) - 1
+			for s in result:
+				n_count = len(s) - 1 
+				for i in s:
+					file.write(str(i))
+					if n_count > 0:
+						file.write(',')
+						n_count -= 1
+
+				if line_count > 0:
+					file.write('\n')
+					line_count -= 1
+
 
 
 if __name__ == '__main__':

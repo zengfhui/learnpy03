@@ -3,15 +3,7 @@
 import sys
 import csv
 
-'''
-args = sys.argv[1:]
-index = args.index('-c')
-configfile = args[index+1]
-index = args.index('-d')
-userdatafile = args[index+1]
-index = args.index('-o')
-outputfile= args[index+1]
-'''
+
 
 
 class Args():
@@ -52,7 +44,9 @@ class Config(object):
 		config =dict()
 		with open(configfile) as file:
 			for line in file.readlines():
-				key,value = line.strip().split('=')
+				key,value = line.strip().strip().split('=')
+				key = key.strip()
+				value = value.strip()
 				try:
 					config[key] = float(value)
 				except:
@@ -172,6 +166,7 @@ class UserData():
 			result.append(data)
 
 
+
 		with open(args._path_outputfile,'w') as file:
 #			writer = csv.writer(file)
 #			writer.writerows(result)
@@ -190,12 +185,17 @@ class UserData():
 
 
 
-if __name__ == '__main__':
-	d = UserData()
-	d._export()
+#if __name__ == '__main__':
+d = UserData()
+d._export()
+
 
 
 '''
+
+
+
+
 
 	def __init__(self,userdatafile):
 		self._userdata = dict()
